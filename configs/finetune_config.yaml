@@ -1,0 +1,83 @@
+# ==============================================================================
+# DeepSeek-OCR Vietnamese Fine-tuning Configuration
+# ==============================================================================
+
+# ------------------------------------------------------------------------------
+# Model & Tokenizer Settings
+# ------------------------------------------------------------------------------
+model:
+  model_name_or_path: "unsloth/DeepSeek-OCR"
+  load_in_4bit: false               
+  trust_remote_code: true
+  unsloth_force_compile: true
+  use_gradient_checkpointing: "unsloth"
+
+# ------------------------------------------------------------------------------
+# LoRA (PEFT) Parameters
+# ------------------------------------------------------------------------------
+lora:
+  r: 16
+  lora_alpha: 16
+  lora_dropout: 0.0
+  bias: "none"
+  random_state: 3407
+  use_rslora: false
+  target_modules:
+    - "q_proj"
+    - "k_proj"
+    - "v_proj"
+    - "o_proj"
+    - "gate_proj"
+    - "up_proj"
+    - "down_proj"
+
+# ------------------------------------------------------------------------------
+# Data & Vision Processing Settings
+# ------------------------------------------------------------------------------
+data:
+  images_dir: "data/images"
+  train_json: "data/train.json"
+  val_json: "data/validation.json"
+  test_json: "data/test.json"
+  instruction: "<image>\nFree OCR. "
+  
+  # Image collator configuration (Gundam dynamic crop)
+  base_size: 1024                    # Global view resolution
+  image_size: 640                    # Local patch resolution
+  crop_mode: true                    # Enable dynamic multi-scale cropping
+  train_on_responses_only: true      # Mask prompt tokens in loss calculation
+
+# ------------------------------------------------------------------------------
+# Hugging Face Trainer & Hyperparameters
+# ------------------------------------------------------------------------------
+training:
+  output_dir: "outputs"
+  num_train_epochs: 1
+  per_device_train_batch_size: 1
+  gradient_accumulation_steps: 8
+  per_device_eval_batch_size: 1
+  eval_accumulation_steps: 1
+  
+  learning_rate: 2.0e-4
+  weight_decay: 0.001
+  lr_scheduler_type: "linear"
+  warmup_steps: 10
+  
+  optim: "adamw_8bit"
+  seed: 3407
+  fp16: true
+  bf16: false
+  
+  logging_steps: 10
+  eval_strategy: "steps"
+  eval_steps: 25
+  save_strategy: "steps"
+  save_steps: 25
+  
+  load_best_model_at_end: true
+  metric_for_best_model: "eval_loss"
+  greater_is_better: false
+  
+  dataloader_num_workers: 2
+  remove_unused_columns: false
+  report_to: "none"

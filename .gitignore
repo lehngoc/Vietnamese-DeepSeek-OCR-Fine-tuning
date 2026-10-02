@@ -1,0 +1,37 @@
+# Private & Internal notes (chứa file tài liệu cá nhân, notebook cũ, pdf)
+.private/
+.internal/
+
+# Python & Environment
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+ENV/
+
+# Jupyter Notebooks Checkpoints & Cache
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/*
+
+# Training Checkpoints, Logs & Outputs
+outputs/
+output/
+wandb/
+runs/
+*.log
+
+# Model Weights & Large Files
+*.safetensors
+*.bin
+*.pt
+*.pth
+deepseek_ocr/
+deepseek_ocr_finetuned_final/
+
+# OS specific
+.DS_Store
+Thumbs.db

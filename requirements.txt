@@ -1,0 +1,28 @@
+# Core Deep Learning & Transformers
+torch>=2.0.0
+transformers==4.56.2
+accelerate>=0.30.0
+bitsandbytes>=0.43.0
+sentencepiece>=0.2.0
+protobuf>=3.20.0
+huggingface_hub>=0.23.0
+
+# Efficient Fine-Tuning (Unsloth & PEFT)
+unsloth>=2024.8
+peft>=0.10.0
+trl==0.22.2
+
+# Vision & OCR Data Processing
+Pillow>=9.5.0
+einops>=0.7.0
+addict>=2.4.0
+easydict>=1.10
+datasets>=2.18.0
+
+# Evaluation & Metrics
+jiwer>=3.0.0
+
+# Configuration & Utilities
+pyyaml>=6.0.0
+tqdm>=4.65.0
+
